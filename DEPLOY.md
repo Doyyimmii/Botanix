@@ -18,7 +18,7 @@ It supports Node.js natively and keeps your bot online 24/7.
 
 ## 🔧 Steps to Deploy
 
-1. Create an account at **https://shard.host/**
+1. Create an account at **https://shardcloud.app*
 2. Create a **Node.js container**
 3. Upload your project or link your GitHub repo
 4. Go to **Environment Variables** and add:
