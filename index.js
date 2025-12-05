@@ -6,15 +6,16 @@ const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers
     ]
 });
 
 // Prefix
 const prefix = process.env.PREFIX;
 
-client.commands = new Collection()
-client.slashCommands = new Collection()
+client.commands = new Collection();
+client.slashCommands = new Collection();
 
 // Load prefix commands
 const prefixFiles = fs.readdirSync('./commands/prefix').filter(file => file.endsWith('.js'));
@@ -51,11 +52,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 fs.readdirSync('./events').filter(f => f.endsWith('.js')).forEach(file => {
     const event = require(`./events/${file}`);
     if (event.name && typeof event.execute === 'function') {
-        if (file.startsWith('guildMemberAdd')) {
-            client.on(event.name, (...args) => event.execute(...args));
-        } else if (file.startsWith('messageCreate')) {
-            client.on(event.name, (...args) => event.execute(...args));
-        }
+        client.on(event.name, (...args) => event.execute(...args, client));
     }
 });
 
@@ -77,23 +74,23 @@ client.on('messageCreate', message => {
     }
 });
 
-// Slash commmand handler
+// Slash command handler
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
 
     const command = client.slashCommands.get(interaction.commandName);
     if (!command) return;
-    
+
     try {
-       await command.execute(interaction, client); 
+        await command.execute(interaction, client);
     } catch (error) {
         console.error(error);
         await interaction.reply({ content: 'There was an error executing that command.', ephemeral: true });
     }
 });
 
-client.on('ready', () => {
+client.once('ready', () => {
     console.log(`${client.user.tag} is online!`);
 });
 
-client.login(process.env.TOKEN)
+client.login(process.env.TOKEN);

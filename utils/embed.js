@@ -13,10 +13,16 @@ function errorEmbed(description) {
     .setDescription(description);
 }
 
+function warnEmbed(description) {
+    return new EmbedBuilder()
+    .setColor('Yellow')
+    .setDescription(description);
+}
+
 function infoEmbed(description) {
     return new EmbedBuilder()
     .setColor('Blue')
     .setDescription(description);
 }
 
-module.exports = { sucessEmbed, errorEmbed, infoEmbed };
+module.exports = { sucessEmbed, errorEmbed, infoEmbed, warnEmbed };
