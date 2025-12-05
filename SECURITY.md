@@ -1,6 +1,3 @@
-# ✅ **SECURITY.md**
-
-````markdown
 # Security Policy
 
 ## 🔒 Supported Versions
@@ -100,5 +97,3 @@ These rules apply to:
 
 We appreciate any effort to help keep Botanix safe.
 Thank you for supporting secure and ethical development.
-
-```
