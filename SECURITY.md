@@ -1,3 +1,6 @@
+# ✅ **SECURITY.md**
+
+````markdown
 # Security Policy
 
 ## 🔒 Supported Versions
@@ -65,3 +68,37 @@ Your `.env` file must **never** be uploaded to the repository.
 ```bash
 npm audit
 npm update
+````
+
+---
+
+## 🔄 Handling Security Fixes
+
+When a vulnerability is confirmed:
+
+1. A patch will be developed privately
+2. A new secure release will be pushed
+3. A notice may be added to the `CHANGELOG.md`
+4. Disclosure will be made **only after users can safely update**
+
+Botanix does **not** publicly reveal vulnerabilities until they are fixed.
+
+---
+
+## 🧩 Security Scope
+
+These rules apply to:
+
+* Core bot code (`index.js`, `handlers`, events, commands)
+* Infrastructure (Shard Cloud, Railway, Docker)
+* Environment variables
+* Logging & audit systems
+
+---
+
+## 🤝 Responsible Disclosure
+
+We appreciate any effort to help keep Botanix safe.
+Thank you for supporting secure and ethical development.
+
+```
