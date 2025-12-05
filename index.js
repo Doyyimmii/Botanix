@@ -47,6 +47,18 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
     }
 })();
 
+// Load events
+fs.readdirSync('./events').filter(f => f.endsWith('.js')).forEach(file => {
+    const event = require(`./events/${file}`);
+    if (event.name && typeof event.execute === 'function') {
+        if (file.startsWith('guildMemberAdd')) {
+            client.on(event.name, (...args) => event.execute(...args));
+        } else if (file.startsWith('messageCreate')) {
+            client.on(event.name, (...args) => event.execute(...args));
+        }
+    }
+});
+
 // Prefix command handler
 client.on('messageCreate', message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
