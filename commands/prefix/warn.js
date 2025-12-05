@@ -8,6 +8,20 @@ module.exports = {
     execute(message, args) {
         if (!isMod(message.member))
             return message.channel.send({ embeds: [errorEmbed('You do not have permission to warn members')], ephemeral: true });
+        
+        const logChannel = message.guild.channels.cache.get(process.env.LOG_CHANNEL_ID);
+        if (logChannel) {
+            logChannel.send({
+                embeds: [
+                    warnEmbed(
+                        `⚠️ **User Warned**\n` +
+                        `**User:** ${user.tag}\n` +
+                        `**Moderator:** ${message.author.tag}\n` +
+                        `**Reason:** ${reason}`
+                    )
+                ]
+            });
+}
 
         const user = message.mentions.users.first();
         if (!user) return message.channel.send({ embeds: [errorEmbed('Please mention a user')], ephemeral: true });

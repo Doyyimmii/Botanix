@@ -8,6 +8,20 @@ module.exports = {
         if (!isMod(message.member))
             return message.channel.send({ embeds: [errorEmbed('You do not have permission to ban members!')] });
 
+        const logChannel = message.guild.channels.cache.get(process.env.LOG_CHANNEL_ID);
+        if (logChannel) {
+            logChannel.send({
+                embeds: [
+                    warnEmbed(
+                        `🔨 **Ban Executed**\n` +
+                        `**User:** ${member.user.tag}\n` +
+                        `**Moderator:** ${message.author.tag}\n` +
+                        `**Reason:** ${reason}`
+                    )
+                ]
+            });
+        }
+
         const member = message.mentions.members.first();
         if (!member) return message.channel.send({ embeds: [errorEmbed('Please mention a member to ban!')] });
 
